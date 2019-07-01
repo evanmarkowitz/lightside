@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import CardContainer from '../CardContainer/CardContainer.js'
 
 class App extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class App extends Component {
   }  
 
   render() {
+    const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
     return(
       <main>
         <header>
@@ -33,7 +35,7 @@ class App extends Component {
           <button>Favorites</button>
         </header>
         <section className='card--container'>
-
+          <CardContainer data={this.state.people} attributes={peopleAttributes}/>
         </section>
       </main>
     )
