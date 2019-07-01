@@ -3,7 +3,8 @@ import React from 'react'
 const Card = ({data}) => {
 
   const showCards = Object.entries(data).map(entry => {
-    return <li>{entry[0]}: {entry[1]}</li>
+    let key = entry[0].replace('_', ' ').split('')
+    return <li>{key}: {entry[1]}</li>
   })
   
   return(
