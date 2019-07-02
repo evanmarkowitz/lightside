@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import CardContainer from '../CardContainer/CardContainer.js'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+ } from 'react-router-dom'
 
 class App extends Component {
   constructor() {
@@ -26,18 +32,26 @@ class App extends Component {
 
   render() {
     const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
+    const planetAttributes = ['name', 'terrain', 'diameter', 'population']
+    const vehicleAttributes = ['name', 'model', 'class', 'passengers']
     return(
+      <Router>
       <main>
         <header>
-          <button>People</button>
-          <button>Planet</button>
-          <button>Vehicles</button>
-          <button>Favorites</button>
+          <button><Link to='/people'>People</Link></button>
+          <button><Link to='/planets'>Planet</Link></button>
+          <button><Link to='/vehicles'>Vehicles</Link></button>
+          <button><Link to='/favorites'>Favorites</Link></button>
         </header>
         <section className='card--container'>
-          <CardContainer data={this.state.people} attributes={peopleAttributes}/>
+          <Switch>
+            <Route path="/people" render={() => <CardContainer data={this.state.people} attributes={peopleAttributes}/>} />
+            <Route path="/planets" render={() => <CardContainer data={this.state.planets} attributes={planetAttributes}/>} />
+            <Route path="/vehicles" render={() => <CardContainer data={this.state.vehicles} attributes={vehicleAttributes}/>} />
+          </Switch>
         </section>
       </main>
+      </Router>
     )
   }
 }

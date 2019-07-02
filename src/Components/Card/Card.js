@@ -8,7 +8,7 @@ const Card = ({data}) => {
   })
   
   return(
-    <article>
+    <article className="card">
       <ul>
       {showCards}
       </ul>
