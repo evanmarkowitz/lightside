@@ -1,5 +1,6 @@
 import React from 'react'
 import Card from '../Card/Card.js'
+import './CardContainer.css'
 
 const CardContainer = ({data, attributes}) => {
 
@@ -13,11 +14,11 @@ const CardContainer = ({data, attributes}) => {
   },[])
 
   const cardArray = allData.map(obj =>
-    <Card data={obj}/>
+    <Card data={obj} key={obj.name}/>
   )
 
   return(
-    <section>
+    <section className="card-section">
       {cardArray}
     </section>
   )
