@@ -1,23 +1,76 @@
 .card {
-  border: 1px solid black;
-  margin: 10px;
   height: 300px;
-  width: 300px;
+  width: 280px;
   padding: 10px;
-  background: rgba(63, 100, 131, 0.7);
+  margin: 20px;
+  background: rgba(63, 100, 131, 0.8);
+  border-radius: 10px;
+}
+
+.card:hover {
+  animation: grow .25s ease forwards
 }
 
 .card-header {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .card-image {
   height: 50px;
   width: 50px;
   cursor: pointer;
+  position: relative;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
 }
 
-#card0 {
-  /* background: white;  */
+.card-key {
+  color: #FCDF2C;
+  font-size: 22px;
+}
+
+.card-list-item {
+  margin: 5px;
+}
+
+.card-list {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 5px;
+}
+
+.card-title {
+  color: #4CFF4B;
+  font-size: 35px;
+  margin: 5px 5px;  
+  z-index: 1;
+}
+.card-title:hover {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+.card-entry {
+  color: #fff;
+  font-size: 14px;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4CFF4B, 0 0 40px #4CFF4B, 0 0 50px #4CFF4B, 0 0 60px #4CFF4B, 0 0 70px #4CFF4B;
+  }
+  
+  100% {
+    text-shadow: 0 0 20px #fff, 0 0 30px #4CFF4B, 0 0 40px #4CFF4B, 0 0 50px #4CFF4B, 0 0 60px #4CFF4B, 0 0 70px #4CFF4B, 0 0 80px #4CFF4B;
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05) 
+  }
 }
