@@ -7,6 +7,7 @@ import {
   Switch,
   Link,
  } from 'react-router-dom'
+ import logo from  '../Images/starwarslogo.png'
 
 class App extends Component {
   constructor() {
@@ -38,10 +39,13 @@ class App extends Component {
       <Router>
       <main>
         <header>
-          <button><Link to='/people'>People</Link></button>
-          <button><Link to='/planets'>Planet</Link></button>
-          <button><Link to='/vehicles'>Vehicles</Link></button>
-          <button><Link to='/favorites'>Favorites</Link></button>
+          <img src={logo} alt='star wars logo' className='logo'/>
+          <nav>
+            <button><Link to='/people' className='router__link'>People</Link></button>
+            <button><Link to='/planets' className='router__link'>Planet</Link></button>
+            <button><Link to='/vehicles' className='router__link'>Vehicles</Link></button>
+            <button><Link to='/favorites' className='router__link'>Favorites</Link></button>
+          </nav>
         </header>
         <section className='card--container'>
           <Switch>
