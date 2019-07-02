@@ -18,7 +18,8 @@ class App extends Component {
       people: [],
       planets: [],
       vehicles: [],
-      film: []
+      film: [],
+      favorites: []
     }
   }
 
@@ -44,8 +45,13 @@ class App extends Component {
 
   toggleFavorite = (name, category) => {
     const updatedData = this.state[category].map(item => {
-      if (item.attributes.name === name) {
+      if (item.attributes.name === name  && !item.favorited) {
        item.favorited = !item.favorited
+       this.setState({favorites: [...this.state.favorites, item]})
+     } else if(item.attributes.name === name) {
+        item.favorited = !item.favorited
+        let favorites = this.state.favorites.filter(obj => obj.attributes.name !== item.attributes.name)
+        this.setState({ favorites })
      }
      return item
     })
@@ -81,6 +87,9 @@ class App extends Component {
             />} />
             <Route path="/vehicles" render={() => <CardContainer 
             data={this.state.vehicles} 
+            toggleFavorite={this.toggleFavorite}/>} />
+            <Route path="/favorites" render={() => <CardContainer 
+            data={this.state.favorites} 
             toggleFavorite={this.toggleFavorite}/>} />
           </Switch>
         </section>
