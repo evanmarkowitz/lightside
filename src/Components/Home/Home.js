@@ -1,6 +1,4 @@
 import React from 'react'
-import Crawl from 'react-star-wars-crawl'
-import 'react-star-wars-crawl/lib/index.css'
 import './Home.css'
 
 const Home = ({text}) => {
