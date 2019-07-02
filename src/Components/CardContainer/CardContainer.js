@@ -18,7 +18,7 @@ const CardContainer = ({data, attributes}) => {
   )
 
   return(
-    <section className="card-section">
+    <section className='card--container'>
       {cardArray}
     </section>
   )

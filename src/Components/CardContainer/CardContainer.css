@@ -1,5 +1,6 @@
-.card-section {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
+.card--container {
+  display: grid;
+  padding: 3rem;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
 }
