@@ -9,7 +9,7 @@ import {
   Link,
  } from 'react-router-dom'
  import logo from  '../Images/starwarslogo.png'
-//  import newObjs from './App.helper'
+ import newObjs from './App.helper'
 
 class App extends Component {
   constructor() {
@@ -24,33 +24,13 @@ class App extends Component {
   componentDidMount() {
     fetch('https://swapi.co/api/people/')
       .then(response => response.json())
-      .then(people => newObjs(people.results, ['name', 'birth_year', 'gender', 'height', 'eye_color'], 'people'))
+      .then(people => newObjs(people.results, ['name', 'birth_year', 'gender', 'height', 'eye_color'], 'people', this))
     fetch('https://swapi.co/api/planets/')
       .then(response => response.json())
-      .then(planets => newObjs(planets.results, ['name', 'terrain', 'diameter', 'population'], 'planets'))
+      .then(planets => newObjs(planets.results, ['name', 'terrain', 'diameter', 'population'], 'planets', this))
     fetch('https://swapi.co/api/vehicles/')
       .then(response => response.json())
-      .then(vehicles => newObjs(vehicles.results, ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles'))
-    const newObjs = (dataset, attributes, name) => {
-      const newDataSet = dataset.reduce((acc, item) => {
-       const personObj = {}
-        attributes.forEach(attribute => {
-          personObj[attribute] = item[attribute]
-        })
-        acc.push(personObj)
-        return acc
-      }, [])
-      setFavorite(newDataSet, name)
-    }
-    const setFavorite = (dataSet, name) => {
-      const updatedData = dataSet.map(item => {
-        item.favorited = false;
-        item.category = name
-        return item
-      })
-      this.setState({[name]: updatedData})
-    }
-    
+      .then(vehicles => newObjs(vehicles.results, ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles', this))
   }
 
   toggleFavorite = (name, category) => {

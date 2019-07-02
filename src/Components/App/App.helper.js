@@ -1,4 +1,5 @@
-function newObjs(dataset, attributes, name) {
+function newObjs(dataset, attributes, name, state) {
+  console.log(state)
   const newDataSet = dataset.reduce((acc, item) => {
    const personObj = {}
     attributes.forEach(attribute => {
@@ -7,15 +8,16 @@ function newObjs(dataset, attributes, name) {
     acc.push(personObj)
     return acc
   }, [])
-  setFavorite(newDataSet, name)
+  setFavorite(newDataSet, name, state)
 }
-function setFavorite(dataSet, name) {
+const setFavorite = (dataSet, name, state) => {
   const updatedData = dataSet.map(item => {
     item.favorited = false;
     item.category = name
     return item
   })
-  this.setState({[name]: updatedData})
+  console.log(state)
+  state.setState({[name]: updatedData})
 }
 
 export default newObjs;
