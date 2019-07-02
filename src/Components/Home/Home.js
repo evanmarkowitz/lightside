@@ -7,10 +7,10 @@ const Home = () => {
 
   return (
     <article className='body'>
-      <div class="fade"></div>
-      <section class="star-wars">
-        <div class="crawl">
-          <div class="title">
+      <div className="fade"></div>
+      <section className="star-wars">
+        <div className="crawl">
+          <div className="title">
             {/* <p>Episode IV</p> */}
             <h1>Welcome</h1>
           </div>

@@ -19,6 +19,7 @@ const CardContainer = ({data, attributes, toggleFavorite}) => {
       key={obj.name} 
       id={'card' + i} 
       category={data[0].category}
+      isFavorited={data[i].favorited}
       toggleFavorite={toggleFavorite}/>
   )
 
