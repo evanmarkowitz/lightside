@@ -16,7 +16,8 @@ class App extends Component {
     this.state = {
       people: [],
       planets: [],
-      vehicles: []
+      vehicles: [],
+      film: []
     }
   }
 
@@ -30,7 +31,14 @@ class App extends Component {
     fetch('https://swapi.co/api/vehicles/')
     .then(response => response.json())
     .then(vehicles => this.setState({vehicles: vehicles.results}))
-  }  
+    fetch(`https://swapi.co/api/films/${this.pickRandomFilm()}/`)
+    .then(response => response.json())
+    .then(film => console.log(film))
+  }
+  
+  pickRandomFilm = () => {
+    return (Math.floor(Math.random() * 7))
+  }
 
   render() {
     const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
