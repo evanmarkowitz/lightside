@@ -15,6 +15,11 @@ main button {
   border-radius: 3px;
   box-shadow: 0 0 50px #38C7F6;
   width: 200px;
+  transition: all .3s ease-in-out; 
+}
+
+main button:hover {
+  transform: scale(1.1); 
 }
 
 .logo {
@@ -23,6 +28,11 @@ main button {
   padding: 20px;
   margin: 0px auto;
   display: block;
+  transition: all .3s ease-in-out; 
+}
+
+.logo:hover {
+  transform: scale(1.1); 
 }
 
 nav {

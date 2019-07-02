@@ -40,7 +40,7 @@ class App extends Component {
       <Router>
       <main>
         <header>
-          <img src={logo} alt='star wars logo' className='logo'/>
+          <Link to ='/'><img src={logo} alt='star wars logo' className='logo'/></Link>
           <nav>
             <button><Link to='/people' className='router__link'>People</Link></button>
             <button><Link to='/planets' className='router__link'>Planet</Link></button>
