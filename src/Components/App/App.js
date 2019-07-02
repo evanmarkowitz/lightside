@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import CardContainer from '../CardContainer/CardContainer.js'
+import Home from '../Home/Home.js'
 import {
   BrowserRouter as Router,
   Route,
@@ -47,8 +48,9 @@ class App extends Component {
             <button><Link to='/favorites' className='router__link'>Favorites</Link></button>
           </nav>
         </header>
-        <section className='card--container'>
+        <section className='card--section'>
           <Switch>
+            <Route exact path='/' Component={Home}/>
             <Route path="/people" render={() => <CardContainer data={this.state.people} attributes={peopleAttributes}/>} />
             <Route path="/planets" render={() => <CardContainer data={this.state.planets} attributes={planetAttributes}/>} />
             <Route path="/vehicles" render={() => <CardContainer data={this.state.vehicles} attributes={vehicleAttributes}/>} />

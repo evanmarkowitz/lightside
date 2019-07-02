@@ -3,6 +3,7 @@ main {
   background-image: url('../Images/background.jpg');
   background-size: cover;
   height: 100vh;
+  background-repeat: repeat;
 }
 
 

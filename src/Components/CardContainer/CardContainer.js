@@ -1,5 +1,6 @@
 import React from 'react'
 import Card from '../Card/Card.js'
+import './CardContainer.css'
 
 const CardContainer = ({data, attributes}) => {
 
@@ -17,7 +18,7 @@ const CardContainer = ({data, attributes}) => {
   )
 
   return(
-    <section>
+    <section className='card--container'>
       {cardArray}
     </section>
   )
