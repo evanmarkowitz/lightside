@@ -22,20 +22,39 @@ class App extends Component {
 
   componentDidMount() {
     fetch('https://swapi.co/api/people/')
-    .then(response => response.json())
-    .then(people => this.setState({people: people.results}))
+      .then(response => response.json())
+      .then(people => setFavorite(people.results, 'people'))
     fetch('https://swapi.co/api/planets/')
-    .then(response => response.json())
-    .then(planets => this.setState({planets: planets.results}))
+      .then(response => response.json())
+      .then(planets => setFavorite(planets.results, 'planets'))
     fetch('https://swapi.co/api/vehicles/')
-    .then(response => response.json())
-    .then(vehicles => this.setState({vehicles: vehicles.results}))
-  }  
+      .then(response => response.json())
+      .then(vehicles => setFavorite(vehicles.results, 'vehicles'))
+    
+    const setFavorite = (dataSet, name) => {
+      const updatedData = dataSet.map(item => {
+        item.favorited = false;
+        item.category = name
+        return item
+      })
+      this.setState({[name]: updatedData})
+    }
+  }
+
+  toggleFavorite = (name, category) => {
+    const updatedData = this.state[category].map(item => {
+      if (item.name === name) {
+       item.favorited = !item.favorited
+     }
+     return item
+    })
+    this.setState({ [category]: updatedData })
+  }
 
   render() {
     const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
     const planetAttributes = ['name', 'terrain', 'diameter', 'population']
-    const vehicleAttributes = ['name', 'model', 'class', 'passengers']
+    const vehicleAttributes = ['name', 'model', 'vehicle_class', 'passengers']
     return(
       <Router>
       <main>
@@ -52,9 +71,18 @@ class App extends Component {
         <section className='card--section'>
           <Switch>
             <Route exact path='/' render={()=> <Home />}/>
-            <Route path="/people" render={() => <CardContainer data={this.state.people} attributes={peopleAttributes}/>} />
-            <Route path="/planets" render={() => <CardContainer data={this.state.planets} attributes={planetAttributes}/>} />
-            <Route path="/vehicles" render={() => <CardContainer data={this.state.vehicles} attributes={vehicleAttributes}/>} />
+            <Route path="/people" render={() => <CardContainer 
+            data={this.state.people} 
+            attributes={peopleAttributes} 
+            toggleFavorite={this.toggleFavorite}/>}/>
+            <Route path="/planets" render={() => <CardContainer 
+            data={this.state.planets} 
+            attributes={planetAttributes}
+            toggleFavorite={this.toggleFavorite}/>} />
+            <Route path="/vehicles" render={() => <CardContainer 
+            data={this.state.vehicles} 
+            attributes={vehicleAttributes}
+            toggleFavorite={this.toggleFavorite}/>} />
           </Switch>
         </section>
       </main>
