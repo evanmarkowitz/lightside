@@ -44,7 +44,7 @@ class App extends Component {
 
   toggleFavorite = (name, category) => {
     const updatedData = this.state[category].map(item => {
-      if (item.name === name) {
+      if (item.attributes.name === name) {
        item.favorited = !item.favorited
      }
      return item
@@ -53,9 +53,9 @@ class App extends Component {
   }
 
   render() {
-    const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
-    const planetAttributes = ['name', 'terrain', 'diameter', 'population']
-    const vehicleAttributes = ['name', 'model', 'vehicle_class', 'passengers']
+    // const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
+    // const planetAttributes = ['name', 'terrain', 'diameter', 'population']
+    // const vehicleAttributes = ['name', 'model', 'vehicle_class', 'passengers']
     return(
       <Router>
       <main>
@@ -68,21 +68,19 @@ class App extends Component {
             <button><Link to='/favorites' className='router__link'>Favorites</Link></button>
           </nav>
         </header>
-        {/* <Home /> */}
         <section className='card--section'>
           <Switch>
             <Route exact path='/' render={()=> <Home text={this.state.film.opening_crawl}/>}/>
             <Route path="/people" render={() => <CardContainer 
             data={this.state.people} 
-            attributes={peopleAttributes} 
-            toggleFavorite={this.toggleFavorite}/>}/>
+            toggleFavorite={this.toggleFavorite}
+            />}/>
             <Route path="/planets" render={() => <CardContainer 
-            data={this.state.planets} 
-            attributes={planetAttributes}
-            toggleFavorite={this.toggleFavorite}/>} />
+            data={this.state.planets}
+            toggleFavorite={this.toggleFavorite} 
+            />} />
             <Route path="/vehicles" render={() => <CardContainer 
             data={this.state.vehicles} 
-            attributes={vehicleAttributes}
             toggleFavorite={this.toggleFavorite}/>} />
           </Switch>
         </section>
