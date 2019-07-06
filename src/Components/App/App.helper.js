@@ -16,7 +16,6 @@ const setFavorite = (dataSet, name, state) => {
     item.category = name
     return item
   })
-  console.log(state)
   state.setState({[name]: updatedData})
 }
 

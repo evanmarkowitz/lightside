@@ -2,6 +2,7 @@ import React from 'react'
 import './Card.css'
 import rebel from '../../images/rebel-2.png'
 import empire from '../../images/Alliance_of_free_planets.png'
+import PropTypes from 'prop-types'
 
 const Card = ({data, id, toggleFavorite, category, isFavorited}) => {
   const showCards = Object.entries(data).map(entry => {
@@ -29,6 +30,14 @@ const Card = ({data, id, toggleFavorite, category, isFavorited}) => {
     </article>
   )
 
+}
+
+Card.propTypes = {
+  data: PropTypes.array,
+  id: PropTypes.string,
+  toggleFavorite: PropTypes.func,
+  category: PropTypes.string,
+  isFavorited: PropTypes.bool
 }
 
 export default Card

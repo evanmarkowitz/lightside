@@ -1,5 +1,7 @@
 import React from 'react'
 import './Home.css'
+import PropTypes from 'prop-types'
+
 
 const Home = ({text}) => {
 
@@ -9,7 +11,6 @@ const Home = ({text}) => {
       <section className="star-wars">
         <div className="crawl">
           <div className="title">
-            {/* <p>Episode IV</p> */}
             <h1>Welcome</h1>
           </div>
           <h2>to the Light Side.</h2>
@@ -22,3 +23,7 @@ const Home = ({text}) => {
 }
 
 export default Home
+
+Home.propTypes = {
+  text: PropTypes.string
+}

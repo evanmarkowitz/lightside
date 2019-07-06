@@ -7,6 +7,7 @@ import {
   Route,
   Switch,
   Link,
+  NavLink
  } from 'react-router-dom'
  import logo from  '../Images/starwarslogo.png'
  import newObjs from './App.helper'
@@ -59,20 +60,18 @@ class App extends Component {
   }
 
   render() {
-    // const peopleAttributes = ['name', 'birth_year', 'gender', 'height', 'eye_color']
-    // const planetAttributes = ['name', 'terrain', 'diameter', 'population']
-    // const vehicleAttributes = ['name', 'model', 'vehicle_class', 'passengers']
+
     return(
       <Router>
       <main>
         <header>
           {/* <Link to ='/'><img src={logo} alt='star wars logo' className='logo'/></Link> */}
           <nav>
-            <button><Link to='/people' className='router__link'>People</Link></button>
-            <button><Link to='/planets' className='router__link'>Planet</Link></button>
+            <button><NavLink to='/people' activeClassName="selected" className='router__link'>People</NavLink></button>
+            <button><NavLink to='/planets' activeClassName="selected" className='router__link'>Planet</NavLink></button>
             <Link to ='/'><img src={logo} alt='star wars logo' className='logo'/></Link>
-            <button><Link to='/vehicles' className='router__link'>Vehicles</Link></button>
-            <button><Link to='/favorites' className='router__link'>Favorites</Link></button>
+            <button><NavLink to='/vehicles' activeClassName="selected" className='router__link'>Vehicles</NavLink></button>
+            <button><NavLink to='/favorites' activeClassName="selected" className='router__link'>Favorites</NavLink></button>
           </nav>
         </header>
         <section className='card--section'>
