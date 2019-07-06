@@ -33,7 +33,7 @@ const Card = ({data, id, toggleFavorite, category, isFavorited}) => {
 }
 
 Card.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   id: PropTypes.string,
   toggleFavorite: PropTypes.func,
   category: PropTypes.string,

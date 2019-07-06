@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should match the snapshot with all data passed in correctly 1`] = `ShallowWrapper {}`;
+
+exports[`Card should match the snapshot with isFavorited true passed in correctly 1`] = `ShallowWrapper {}`;
