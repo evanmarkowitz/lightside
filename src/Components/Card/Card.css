@@ -5,10 +5,11 @@
   margin: 20px;
   background: rgba(63, 100, 131, 0.8);
   border-radius: 10px;
+  cursor: default;
 }
 
 .card:hover {
-  animation: grow .25s ease forwards
+  animation: grow .25s ease forwards;
 }
 
 .card-header {
