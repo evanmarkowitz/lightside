@@ -3,7 +3,6 @@ main {
   background-image: url('../Images/background.jpg');
   background-size: 100%;   
   min-height: 100vh;
-  /* position: fixed; */
   background-repeat: repeat;
   min-width: 100vw;
 }
@@ -49,4 +48,8 @@ nav {
   opacity: 1;
   font-size: 24px;
   font-weight: bold;
+}
+
+.selected {
+  box-shadow: 0 2 70px green;
 }

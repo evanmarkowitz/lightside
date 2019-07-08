@@ -5,7 +5,7 @@ function newObjs(dataset, attributes, name, state) {
     attributes.forEach(attribute => {
       personObj[attribute] = item[attribute]
     })
-    acc.push(personObj)
+    acc.push({attributes: personObj})
     return acc
   }, [])
   setFavorite(newDataSet, name, state)
@@ -16,7 +16,6 @@ const setFavorite = (dataSet, name, state) => {
     item.category = name
     return item
   })
-  console.log(state)
   state.setState({[name]: updatedData})
 }
 

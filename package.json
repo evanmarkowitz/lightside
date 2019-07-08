@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "enzyme": "^3.10.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
@@ -13,8 +14,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "react-scripts test --verbose"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0"
   }
 }
