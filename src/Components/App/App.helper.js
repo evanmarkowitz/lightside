@@ -19,4 +19,19 @@ const setFavorite = (dataSet, name, state) => {
   state.setState({[name]: updatedData})
 }
 
-export default newObjs;
+const fetchData = (url) => {
+  return fetch(url).then(response => {
+    return response.ok ? response.json() : Error('Error fetching data')
+  })
+}
+
+const organizeData = (url, attributes, destination, state) => {
+  fetchData(url)
+    .then(response => newObjs(response.results, attributes, destination, state))
+}
+
+const setRandomFilm = (url, state) => {
+  fetchData(url)
+    .then(film => state.setState({ film }))
+}
+export { organizeData, setRandomFilm }
