@@ -27,7 +27,6 @@ const fetchData = (url) => {
       return response.json()
     }
   })
-  // .catch(error => new Error('Error Fetching Data'))
 }
 
 const organizeData = (url, attributes, destination, state) => {
@@ -39,5 +38,6 @@ const organizeData = (url, attributes, destination, state) => {
 const setRandomFilm = (url, state) => {
   fetchData(url)
     .then(film => state.setState({ film }))
+    .catch(error => state.setState({error: error.message}))
 }
 export { organizeData, setRandomFilm, newObjs, setFavorite, fetchData }

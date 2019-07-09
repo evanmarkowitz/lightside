@@ -4,7 +4,7 @@ import rebel from '../../images/rebel-2.png'
 import empire from '../../images/Alliance_of_free_planets.png'
 import PropTypes from 'prop-types'
 
-const Card = ({data, id, toggleFavorite, category, isFavorited}) => {
+const Card = ({data, toggleFavorite, category, isFavorited}) => {
   const showCards = Object.entries(data).map(entry => {
     let key = entry[0].replace('_', ' ')
     return <li 
@@ -15,7 +15,7 @@ const Card = ({data, id, toggleFavorite, category, isFavorited}) => {
   })
   
   return(
-    <article className="card" id={id}>
+    <article className="card">
       <div className="card-header">
       <h2 className="card-title">{data.name}</h2>
       <img 
@@ -34,7 +34,6 @@ const Card = ({data, id, toggleFavorite, category, isFavorited}) => {
 
 Card.propTypes = {
   data: PropTypes.object,
-  id: PropTypes.string,
   toggleFavorite: PropTypes.func,
   category: PropTypes.string,
   isFavorited: PropTypes.bool

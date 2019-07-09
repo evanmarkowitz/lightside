@@ -11,6 +11,7 @@ import {
  } from 'react-router-dom'
  import logo from  '../Images/starwarslogo.png'
  import {organizeData, setRandomFilm } from './App.helper'
+ import Card from '../Card/Card'
 
 class App extends Component {
   constructor() {
@@ -69,20 +70,53 @@ class App extends Component {
         <section className='card--section'>
           <Switch>
             <Route exact path='/' render={()=> <Home text={this.state.film.opening_crawl}/>}/>
-            <Route path="/people" render={() => <CardContainer 
+            <Route exact path="/people" render={() => <CardContainer 
             data={this.state.people} 
             toggleFavorite={this.toggleFavorite}
             />}/>
-            <Route path="/planets" render={() => <CardContainer 
+            <Route exact path="/planets" render={() => <CardContainer 
             data={this.state.planets}
             toggleFavorite={this.toggleFavorite} 
             />} />
-            <Route path="/vehicles" render={() => <CardContainer 
+            <Route exact path="/vehicles" render={() => <CardContainer 
             data={this.state.vehicles} 
             toggleFavorite={this.toggleFavorite}/>} />
-            <Route path="/favorites" render={() => <CardContainer 
+            <Route exact path="/favorites" render={() => <CardContainer 
             data={this.state.favorites} 
             toggleFavorite={this.toggleFavorite}/>} />
+            <Route path="/people/:name" render={({match}) => {
+              const { name } = match.params
+              const data = this.state.people.find(person => `:${person.attributes.name}` === name)
+              return <Card 
+              data={data.attributes}
+              key={data.attributes.name}  
+              category={data.category}
+              isFavorited={data.favorited}
+              toggleFavorite={this.toggleFavorite}
+              />
+            }}/>
+            <Route path="/planets/:name" render={({match}) => {
+              const { name } = match.params
+              const data = this.state.planets.find(planet => `:${planet.attributes.name}` === name)
+              return <Card 
+              data={data.attributes}
+              key={data.attributes.name}  
+              category={data.category}
+              isFavorited={data.favorited}
+              toggleFavorite={this.toggleFavorite}
+            />
+            }}/>
+            <Route path="/vehicles/:name" render={({match}) => {
+              const { name } = match.params
+              const data = this.state.vehicles.find(vehicle => `:${vehicle.attributes.name}` === name)
+              return <Card 
+              data={data.attributes}
+              key={data.attributes.name}  
+              category={data.category}
+              isFavorited={data.favorited}
+              toggleFavorite={this.toggleFavorite}
+            />
+            }}/>
           </Switch>
         </section>
       </main>
