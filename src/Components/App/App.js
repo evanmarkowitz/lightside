@@ -36,8 +36,7 @@ class App extends Component {
       .then(vehicles => newObjs(vehicles.results, ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles', this))
     fetch(`https://swapi.co/api/films/${this.pickRandomFilm()}/`)
       .then(response => response.json())
-      .then(film => this.setState({ film }))
-    
+      .then(film => this.setState({ film }))  
   }
 
   pickRandomFilm = () => {
