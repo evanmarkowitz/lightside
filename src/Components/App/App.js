@@ -10,7 +10,7 @@ import {
   NavLink
  } from 'react-router-dom'
  import logo from  '../Images/starwarslogo.png'
- import {organizeData, setRandomFilm } from './App.helper'
+ import {organizeData, setRandomFilm, fetchData} from './App.helper'
 
 class App extends Component {
   constructor() {
@@ -21,6 +21,9 @@ class App extends Component {
       vehicles: [],
       film: [],
       favorites: [],
+      nextPeople: "https://swapi.co/api/people/?page=2",
+      nextPlanets: "https://swapi.co/api/planets/?page=2",
+      nextVehicles: "https://swapi.co/api/vehicles/?page=2",
       error: ''
     }
   }
@@ -34,6 +37,14 @@ class App extends Component {
 
   pickRandomFilm = () => {
     return (Math.floor(Math.random() * 7))
+  }
+
+  showNextPage = (url,attributes, category, stateKey) => {
+    if (url !== null) {
+      organizeData(url, attributes, category, this)
+      fetchData(url)
+      .then(response => this.setState({[stateKey]: response.next}))
+    }
   }
 
   toggleFavorite = (name, category) => {
@@ -73,14 +84,21 @@ class App extends Component {
             <Route path="/people" render={() => <CardContainer 
             data={this.state.people} 
             toggleFavorite={this.toggleFavorite}
+            showNextPage={() => this.showNextPage(this.state.nextPeople, ['name', 'birth_year', 'gender', 'height', 'eye_color'],
+              'people', 'nextPeople')}
             />}/>
             <Route path="/planets" render={() => <CardContainer 
             data={this.state.planets}
             toggleFavorite={this.toggleFavorite} 
+            showNextPage={() => this.showNextPage(this.state.nextPlanets, ['name', 'terrain', 'diameter', 'population'] ,
+              'planets', 'nextPlanets')}
             />} />
             <Route path="/vehicles" render={() => <CardContainer 
             data={this.state.vehicles} 
-            toggleFavorite={this.toggleFavorite}/>} />
+            toggleFavorite={this.toggleFavorite}
+            showNextPage={() => this.showNextPage(this.state.nextVehicles, ['name', 'model', 'vehicle_class', 'passengers'],
+              'vehicles', 'nextVehicles')}
+            />} />
             <Route path="/favorites" render={() => <CardContainer 
             data={this.state.favorites} 
             toggleFavorite={this.toggleFavorite}/>} />
