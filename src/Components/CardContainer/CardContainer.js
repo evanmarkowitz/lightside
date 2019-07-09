@@ -3,7 +3,7 @@ import Card from '../Card/Card.js'
 import './CardContainer.css'
 import PropTypes from 'prop-types'
 
-const CardContainer = ({data, toggleFavorite, showNextPage}) => {
+const CardContainer = ({data, toggleFavorite, showNextPage, showPrevPage}) => {
 
   // const allData = data.reduce((acc, person ) => {
   //   let personObj = {}
@@ -25,10 +25,15 @@ const CardContainer = ({data, toggleFavorite, showNextPage}) => {
   )
 
   return(
-    <section className='card--container'>
-      {cardArray}
-      <button onClick={showNextPage}>show next page</button>
-    </section>
+    <>
+      <section className='card--container'>
+        {cardArray}
+      </section>
+      <section className='button--container'>
+        <button onClick={showPrevPage} className='next__page__button'>SHOW PREVIOUS PAGE</button>
+        <button onClick={showNextPage} className='next__page__button'>SHOW NEXT PAGE</button>
+      </section>
+    </>
   )
 }
 

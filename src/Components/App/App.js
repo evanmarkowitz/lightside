@@ -24,6 +24,9 @@ class App extends Component {
       nextPeople: "https://swapi.co/api/people/?page=2",
       nextPlanets: "https://swapi.co/api/planets/?page=2",
       nextVehicles: "https://swapi.co/api/vehicles/?page=2",
+      prevPeople: null,
+      prevPlanets: null,
+      prevVehicles: null,
       error: ''
     }
   }
@@ -39,13 +42,15 @@ class App extends Component {
     return (Math.floor(Math.random() * 7))
   }
 
-  showNextPage = (url,attributes, category, stateKey) => {
+  changePage = (url,attributes, category, stateNext, statePrev) => {
     if (url !== null) {
       organizeData(url, attributes, category, this)
       fetchData(url)
-      .then(response => this.setState({[stateKey]: response.next}))
+      .then(response => this.setState({[stateNext]: response.next, [statePrev]: response.previous}))
     }
   }
+
+  
 
   toggleFavorite = (name, category) => {
     const updatedData = this.state[category].map(item => {
@@ -84,20 +89,26 @@ class App extends Component {
             <Route path="/people" render={() => <CardContainer 
             data={this.state.people} 
             toggleFavorite={this.toggleFavorite}
-            showNextPage={() => this.showNextPage(this.state.nextPeople, ['name', 'birth_year', 'gender', 'height', 'eye_color'],
-              'people', 'nextPeople')}
+            showNextPage={() => this.changePage(this.state.nextPeople, ['name', 'birth_year', 'gender', 'height', 'eye_color'],
+              'people', 'nextPeople', 'prevPeople')}
+            showPrevPage={() => this.changePage(this.state.prevPeople, ['name', 'birth_year', 'gender', 'height', 'eye_color'],
+            'people', 'nextPeople', 'prevPeople')}
             />}/>
             <Route path="/planets" render={() => <CardContainer 
             data={this.state.planets}
             toggleFavorite={this.toggleFavorite} 
-            showNextPage={() => this.showNextPage(this.state.nextPlanets, ['name', 'terrain', 'diameter', 'population'] ,
-              'planets', 'nextPlanets')}
+            showNextPage={() => this.changePage(this.state.nextPlanets, ['name', 'terrain', 'diameter', 'population'] ,
+              'planets', 'nextPlanets', 'prevPlanets')}
+            showPrevPage={() => this.changePage(this.state.prevPlanets, ['name', 'terrain', 'diameter', 'population'] ,
+            'planets', 'nextPlanets', 'prevPlanets')}
             />} />
             <Route path="/vehicles" render={() => <CardContainer 
             data={this.state.vehicles} 
             toggleFavorite={this.toggleFavorite}
-            showNextPage={() => this.showNextPage(this.state.nextVehicles, ['name', 'model', 'vehicle_class', 'passengers'],
-              'vehicles', 'nextVehicles')}
+            showNextPage={() => this.changePage(this.state.nextVehicles, ['name', 'model', 'vehicle_class', 'passengers'],
+              'vehicles', 'nextVehicles', 'prevVehicles')}
+            showPrevPage={() => this.changePage(this.state.prevVehicles, ['name', 'model', 'vehicle_class', 'passengers'],
+            'vehicles', 'nextVehicles', 'prevVehicles')}
             />} />
             <Route path="/favorites" render={() => <CardContainer 
             data={this.state.favorites} 
