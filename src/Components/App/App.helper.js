@@ -1,5 +1,4 @@
 function newObjs(dataset, attributes, name, state) {
-  console.log(state)
   const newDataSet = dataset.reduce((acc, item) => {
    const personObj = {}
     attributes.forEach(attribute => {
@@ -9,6 +8,7 @@ function newObjs(dataset, attributes, name, state) {
     return acc
   }, [])
   setFavorite(newDataSet, name, state)
+  return newDataSet;
 }
 const setFavorite = (dataSet, name, state) => {
   const updatedData = dataSet.map(item => {
@@ -19,4 +19,25 @@ const setFavorite = (dataSet, name, state) => {
   state.setState({[name]: updatedData})
 }
 
-export default newObjs;
+const fetchData = (url) => {
+  return fetch(url).then(response => {
+    if(!response.ok) {
+      throw new Error('Error Fetching Data')
+    } else {
+      return response.json()
+    }
+  })
+  // .catch(error => new Error('Error Fetching Data'))
+}
+
+const organizeData = (url, attributes, destination, state) => {
+  return fetchData(url)
+    .then(response => newObjs(response.results, attributes, destination, state))
+    .catch(error => state.setState({error: error.message}))
+}
+
+const setRandomFilm = (url, state) => {
+  fetchData(url)
+    .then(film => state.setState({ film }))
+}
+export { organizeData, setRandomFilm, newObjs, setFavorite, fetchData }

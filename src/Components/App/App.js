@@ -10,7 +10,7 @@ import {
   NavLink
  } from 'react-router-dom'
  import logo from  '../Images/starwarslogo.png'
- import newObjs from './App.helper'
+ import {organizeData, setRandomFilm } from './App.helper'
 
 class App extends Component {
   constructor() {
@@ -20,23 +20,16 @@ class App extends Component {
       planets: [],
       vehicles: [],
       film: [],
-      favorites: []
+      favorites: [],
+      error: ''
     }
   }
 
   componentDidMount() {
-    fetch('https://swapi.co/api/people/')
-      .then(response => response.json())
-      .then(people => newObjs(people.results, ['name', 'birth_year', 'gender', 'height', 'eye_color'], 'people', this))
-    fetch('https://swapi.co/api/planets/')
-      .then(response => response.json())
-      .then(planets => newObjs(planets.results, ['name', 'terrain', 'diameter', 'population'], 'planets', this))
-    fetch('https://swapi.co/api/vehicles/')
-      .then(response => response.json())
-      .then(vehicles => newObjs(vehicles.results, ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles', this))
-    fetch(`https://swapi.co/api/films/${this.pickRandomFilm()}/`)
-      .then(response => response.json())
-      .then(film => this.setState({ film }))  
+    organizeData('https://swapi.co/api/people/', ['name', 'birth_year', 'gender', 'height', 'eye_color'], 'people', this)
+    organizeData('https://swapi.co/api/planets/', ['name', 'terrain', 'diameter', 'population'], 'planets', this)
+    organizeData('https://swapi.co/api/vehicles/', ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles', this)
+    setRandomFilm(`https://swapi.co/api/films/${this.pickRandomFilm()}/`, this)
   }
 
   pickRandomFilm = () => {
@@ -70,7 +63,8 @@ class App extends Component {
             <button><NavLink to='/planets' activeClassName="selected" className='router__link'>Planet</NavLink></button>
             <Link to ='/'><img src={logo} alt='star wars logo' className='logo'/></Link>
             <button><NavLink to='/vehicles' activeClassName="selected" className='router__link'>Vehicles</NavLink></button>
-            <button><NavLink to='/favorites' activeClassName="selected" className='router__link'>Favorites</NavLink></button>
+            <button><NavLink to='/favorites' activeClassName="selected" className='router__link'>Favorites  {this.state.favorites.length}
+            </NavLink></button>
           </nav>
         </header>
         <section className='card--section'>
