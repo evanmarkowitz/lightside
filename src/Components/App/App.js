@@ -10,7 +10,7 @@ import {
   NavLink
  } from 'react-router-dom'
  import logo from  '../Images/starwarslogo.png'
- import newObjs from './App.helper'
+ import {organizeData, setRandomFilm, fetchData} from './App.helper'
 
 class App extends Component {
   constructor() {
@@ -20,29 +20,37 @@ class App extends Component {
       planets: [],
       vehicles: [],
       film: [],
-      favorites: []
+      favorites: [],
+      nextPeople: "https://swapi.co/api/people/?page=2",
+      nextPlanets: "https://swapi.co/api/planets/?page=2",
+      nextVehicles: "https://swapi.co/api/vehicles/?page=2",
+      prevPeople: null,
+      prevPlanets: null,
+      prevVehicles: null,
+      error: ''
     }
   }
 
   componentDidMount() {
-    fetch('https://swapi.co/api/people/')
-      .then(response => response.json())
-      .then(people => newObjs(people.results, ['name', 'birth_year', 'gender', 'height', 'eye_color'], 'people', this))
-    fetch('https://swapi.co/api/planets/')
-      .then(response => response.json())
-      .then(planets => newObjs(planets.results, ['name', 'terrain', 'diameter', 'population'], 'planets', this))
-    fetch('https://swapi.co/api/vehicles/')
-      .then(response => response.json())
-      .then(vehicles => newObjs(vehicles.results, ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles', this))
-    fetch(`https://swapi.co/api/films/${this.pickRandomFilm()}/`)
-      .then(response => response.json())
-      .then(film => this.setState({ film }))
-    
+    organizeData('https://swapi.co/api/people/', ['name', 'birth_year', 'gender', 'height', 'eye_color'], 'people', this)
+    organizeData('https://swapi.co/api/planets/', ['name', 'terrain', 'diameter', 'population'], 'planets', this)
+    organizeData('https://swapi.co/api/vehicles/', ['name', 'model', 'vehicle_class', 'passengers'], 'vehicles', this)
+    setRandomFilm(`https://swapi.co/api/films/${this.pickRandomFilm()}/`, this)
   }
 
   pickRandomFilm = () => {
     return (Math.floor(Math.random() * 7))
   }
+
+  changePage = (url,attributes, category, stateNext, statePrev) => {
+    if (url !== null) {
+      organizeData(url, attributes, category, this)
+      fetchData(url)
+      .then(response => this.setState({[stateNext]: response.next, [statePrev]: response.previous}))
+    }
+  }
+
+  
 
   toggleFavorite = (name, category) => {
     const updatedData = this.state[category].map(item => {
@@ -71,7 +79,8 @@ class App extends Component {
             <button><NavLink to='/planets' activeClassName="selected" className='router__link'>Planet</NavLink></button>
             <Link to ='/'><img src={logo} alt='star wars logo' className='logo'/></Link>
             <button><NavLink to='/vehicles' activeClassName="selected" className='router__link'>Vehicles</NavLink></button>
-            <button><NavLink to='/favorites' activeClassName="selected" className='router__link'>Favorites</NavLink></button>
+            <button><NavLink to='/favorites' activeClassName="selected" className='router__link'>Favorites  {this.state.favorites.length}
+            </NavLink></button>
           </nav>
         </header>
         <section className='card--section'>
@@ -80,14 +89,27 @@ class App extends Component {
             <Route path="/people" render={() => <CardContainer 
             data={this.state.people} 
             toggleFavorite={this.toggleFavorite}
+            showNextPage={() => this.changePage(this.state.nextPeople, ['name', 'birth_year', 'gender', 'height', 'eye_color'],
+              'people', 'nextPeople', 'prevPeople')}
+            showPrevPage={() => this.changePage(this.state.prevPeople, ['name', 'birth_year', 'gender', 'height', 'eye_color'],
+            'people', 'nextPeople', 'prevPeople')}
             />}/>
             <Route path="/planets" render={() => <CardContainer 
             data={this.state.planets}
             toggleFavorite={this.toggleFavorite} 
+            showNextPage={() => this.changePage(this.state.nextPlanets, ['name', 'terrain', 'diameter', 'population'] ,
+              'planets', 'nextPlanets', 'prevPlanets')}
+            showPrevPage={() => this.changePage(this.state.prevPlanets, ['name', 'terrain', 'diameter', 'population'] ,
+            'planets', 'nextPlanets', 'prevPlanets')}
             />} />
             <Route path="/vehicles" render={() => <CardContainer 
             data={this.state.vehicles} 
-            toggleFavorite={this.toggleFavorite}/>} />
+            toggleFavorite={this.toggleFavorite}
+            showNextPage={() => this.changePage(this.state.nextVehicles, ['name', 'model', 'vehicle_class', 'passengers'],
+              'vehicles', 'nextVehicles', 'prevVehicles')}
+            showPrevPage={() => this.changePage(this.state.prevVehicles, ['name', 'model', 'vehicle_class', 'passengers'],
+            'vehicles', 'nextVehicles', 'prevVehicles')}
+            />} />
             <Route path="/favorites" render={() => <CardContainer 
             data={this.state.favorites} 
             toggleFavorite={this.toggleFavorite}/>} />
